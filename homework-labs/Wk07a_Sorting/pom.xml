@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>edu.csci2720</groupId>
+    <artifactId>Wk07a_Sorting</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Default for local: JDK 24. On Odin (JDK 17) run with:
+                mvn -Dmaven.compiler.release=17 clean test
+         OR, can modify pom.xml
+             <maven.compiler.release>17</maven.compiler.release>
+        -->
+        <maven.compiler.release>24</maven.compiler.release>
+
+        <compiler.plugin.version>3.13.0</compiler.plugin.version>
+        <junit.version>5.11.0</junit.version>
+        <surefire.version>3.5.2</surefire.version>
+        <exec.plugin.version>3.5.1</exec.plugin.version>   <!-- codehaus.mojo -->
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- enables JUNIT testing and proper packaging  -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- enables exec on the commandline -->
+                <!--  mvn -Dexec.mainClass=app.DriverT exec:java < T-input.txt -->
+                <!--  Get-Content T-input.txt | mvn -Dexec.mainClass=app.DriverT exec:java -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>run-driverS</id>
+                        <goals><goal>java</goal></goals>
+                        <configuration><mainClass>app.DriverS</mainClass></configuration>
+                    </execution>
+                    <execution>
+                        <id>run-driverT</id>
+                        <goals><goal>java</goal></goals>
+                        <configuration><mainClass>app.DriverT</mainClass></configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,6 @@
+# Example commands
+PRINT
+ADD Baker,Bob,baker@example.com
+DELE Doe,Jane,alt@example.com
+DELC Smith,Alice
+PRINT

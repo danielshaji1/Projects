@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flower Grid Activity</title>
+
+  <!-- Include MathJax for rendering LaTeX math (if needed) -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3, h4 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    .text-box {
+      background-color: #e9f5ff;
+      padding: 15px;
+      border-left: 5px solid #007bff;
+      margin-bottom: 20px;
+    }
+    .light-box {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .definition-box {
+      background-color: #fffcee;
+      border: 1px solid #ffe58a;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    code {
+      font-family: "Courier New", Courier, monospace;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    pre {
+      border: 1px solid #ccc;
+      background-color: #ddd;
+      padding: 10px;
+      margin: 20px 0;
+      overflow: auto;
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two images per row */
+		             grid-template-columns: 1fr 1fr; /* Two columns */
+
+      gap: 10px;
+      padding: 20px 0;
+    }
+    .image-gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+	  
+.block {
+    height:200;
+    width:80%;
+    text-align:left;
+}
+.center {
+    margin:auto;
+    background-color:white;
+}
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Optional Navigation Links -->
+  [<a href="schedule.html">Schedule</a>] [<a href="index.html">Home</a>]
+
+  <h1>Wk05d: Activity Quiz: <br>
+  Flowers &amp; Carrots on a Grid </h1>
+
+  <p>
+    This exercise provides you with a <code>JPanel</code> that draws a background grid,
+    supports <strong>click-to-place</strong> flowers in cells, and includes a simple
+    <strong>left→right carrot demo</strong> at the top so you can see animation wiring.
+  </p>
+  <p>
+    Your task is to extend it with additional <em>creative</em> and
+    <em>data-structure-oriented</em> features—keeping your code organized, modular, and interesting.
+  </p>
+  <p>
+    You should be able to complete this in <strong>less than one day</strong> or in one class session.
+  </p>
+
+  <div class="text-box">
+    <h3>TODO Tasks:</h3>
+    <ol>
+      <li><strong>Add Variety to Petals</strong> <span>(15 pts)</span>: Use random or user-selected <strong>colors</strong> so each flower is unique.</li>
+      <li><strong>Background Grid Variations</strong> <span>(15 pts)</span>:
+        <ol>
+          <li><strong>Checkerboard</strong> background (parameterize the 2 colors).</li>
+          <li><strong>Diagonal lines</strong> pattern (parameterize number of lines). <em>(Skeleton prints a TODO; you implement.)</em></li>
+        </ol>
+      </li>
+      <li><strong>Grid-based Flower Placement</strong> <span>(15 pts)</span>:
+        <ol>
+          <li>Draw flowers in a <strong>structured grid</strong> (e.g., only even rows and even columns).</li>
+          <li>Center each flower within its grid cell.</li>
+          <li>Add slight <strong>jitter</strong> so they’re not too uniform.</li>
+        </ol>
+      </li>
+      <li><strong>Carrot Mode</strong> <span>(5 pts)</span>:
+        <ol>
+          <li>When carrot mode is ON, draw a <strong>carrot</strong> at the cell center instead of a flower. <em>(Skeleton prints a TODO; you implement.)</em></li>
+        </ol>
+      </li>
+      <li><strong>Falling Flowers (Required for Full Credit)</strong> <span>(15 pts)</span>:
+        <ol>
+          <li>Replace the demo with an animation where some (or all) flowers <strong>fall from the top</strong> to the bottom.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <p>In-class progress: <strong>25 points.</strong></p>
+    <p><strong>Scoring:</strong> Core TODOs = <strong>4 × 15</strong> + <strong>5</strong> = <strong>65 pts</strong>. With in-class progress (25 pts) the quiz totals <strong>90 pts</strong>.</p>
+    <p><strong>Required to reach 100:</strong> Complete <strong>1 Embellishment (10 pts)</strong>. A second embellishment can earn up to <strong>+10 bonus</strong>.</p>
+
+    <p><strong>Embellishments (choose at least 1 for +10; a second optional for bonus):</strong></p>
+    <ul>
+      <li>Chevron or other custom background pattern.</li>
+      <li>Path-following motion for a flower (e.g., circle or rectangle).</li>
+      <li>Extra interaction such as keyboard toggles or tooltips.</li>
+      <li>Any tasteful visual tweak or small effect.</li>
+    </ul>
+  </div>
+
+  <h2>Starter Code Provided</h2>
+  <p>
+    You have two classes in the ZIP:
+  </p>
+  <ul>
+    <li><code>FlowerPanelGrid</code> (a <code>JPanel</code>): Manages the grid, click-to-place flowers, background options, and the small demo carrot.</li>
+    <li><code>FlowerApplication</code> (the <code>main</code> class): Creates the frame and status bar.</li>
+  </ul>
+  <p>
+    The <strong>left→right carrot demo</strong> at the top shows a minimal Swing <code>Timer</code> loop. Replace it with your <strong>falling flowers</strong> animation and any embellishments you choose.
+  </p>
+
+  <div class="light-box">
+    <p><strong>Hint:</strong> For a <em>checkerboard</em>, use alternating <code>fillRect</code> calls. 
+    For a <em>chevron</em>, you can draw overlapping angled polygons. 
+    Feel free to overlay the <code>drawGrid()</code> lines on top of these backgrounds.</p>
+  </div>
+
+  <h2>Submission</h2>
+  <p>
+    <strong>Deliverables:</strong>
+  </p>
+  <ul>
+    <li>
+      <strong>Post</strong> to Piazza by Monday 11:59 PM two <strong>screenshot</strong> (one for each background) and a <strong>short video</strong> (no code shown) of your animated application under the  conversation:
+      <br />
+      <em>"[Quiz03]: Flower Grid Activity Application"</em>
+      <ul>
+        <li><strong>Note:</strong> No Piazza post, no credit.</li>
+      </ul>
+    </li>
+    <li>
+      Include a brief summary (in text or as a comment in your post) describing:
+      <ul>
+        <li>Your chosen background pattern</li>
+        <li>How you randomized flower properties</li>
+        <li>Any special animations or data structures you used</li>
+      </ul>
+    </li>
+  </ul>
+	
+	
+
+  <p><strong>Have fun experimenting -- </strong>We look forward to seeing your creative twists on this classic flower grid.  </p>
+  <div class="image-gallery block center" ></div>
+
+	
+
+	
+</div>
+	
+	<p>&nbsp;</p>
+  <hr>
+  <p><em>Enjoy your floral and carrot-inspired adventure!</em></p>
+
+	
+	
+	
+</div>
+</body>
+</html>

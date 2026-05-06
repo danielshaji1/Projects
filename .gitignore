@@ -1,0 +1,16 @@
+.DS_Store
+.idea/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+node_modules/
+target/
+dist/
+build/
+.next/
+.classpath
+.project
+.settings/
