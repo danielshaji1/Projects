@@ -12,26 +12,26 @@ A collection of coursework and side projects from college courses, organized int
 
 ### Homework And Labs
 
-- `CS-HW-6`
-- `CSC-HW-4`
-- `HW5_src_DanielShaji_732`
-- `Lab13`
-- `Wk05a-HW02-Lists`
-- `Wk05e-FlowerQuiz`
-- `Wk07a_Sorting`
-- `Wk08a-HW03`
-- `Wk15b-HW05-Tree-Builder`
-- `csc-lab-exam`
+- `CS-HW-6`: Python homework using CSV data
+- `CSC-HW-4`: mixed Python coursework and practice files
+- `HW5_src_DanielShaji_732`: restaurant ordering simulation
+- `Lab13`: C networking lab
+- `Wk05a-HW02-Lists`: custom list data structures in Java
+- `Wk05e-FlowerQuiz`: Java quiz application
+- `Wk07a_Sorting`: sorting algorithms assignment
+- `Wk08a-HW03`: stack and queue project
+- `Wk15b-HW05-Tree-Builder`: tree data-structure project
+- `csc-lab-exam`: lab exam submission
 
 ### OpenCV And Computer Vision
 
-- `Facial-Recognition`
-- `Hand-Tracking`
-- `NewTestOpenCV-Hand-Gestures`
+- `Facial-Recognition`: OpenCV detection experiments
+- `Hand-Tracking`: MediaPipe hand tracking practice
+- `NewTestOpenCV-Hand-Gestures`: gesture and web-based experiment set
 
 ### Cryptography
 
-- `Cryptography-Projects`
+- `Cryptography-Projects`: padding-oracle attack experiments and demos
 
 ## Notes
 
