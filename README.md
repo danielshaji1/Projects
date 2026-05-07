@@ -36,6 +36,6 @@ A collection of coursework and side projects from college courses, organized int
 
 ## Notes
 
-- Generated folders such as virtual environments, IDE settings, caches, and build outputs were intentionally excluded.
+- Folders such as virtual environments, IDE settings, caches, and build outputs were intentionally excluded.
 - Project contents were grouped from the original course folders to keep the repository easier to browse.
 - Some folders retain their original course naming so the submitted project names stay recognizable.
