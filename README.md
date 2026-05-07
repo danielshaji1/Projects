@@ -32,6 +32,7 @@ A collection of coursework and side projects from college courses, organized int
 ### Cryptography
 
 - `Cryptography-Projects`: padding-oracle attack experiments and demos
+- `Pohlig-Hellman-Algorithm`: notebook implementing discrete-log algorithms for smooth-order groups
 
 ## Notes
 
