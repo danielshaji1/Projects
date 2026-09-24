@@ -1,0 +1,90 @@
+name: Autograding Tests
+'on': {}
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+          # PROTECTION: Check if .tests folder matches original
+    - name: Check .tests folder integrity
+      run: |
+        echo "🔍 Verifying .tests directory has not been tampered with..."
+        
+        # Find the initial commit (template commit)
+        INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
+        echo "Initial commit: $INITIAL_COMMIT"
+        
+        # Compare each file in .tests directory
+        MODIFIED=0
+        
+        # Get list of files from initial commit in .tests directory only
+        git ls-tree -r $INITIAL_COMMIT .tests/ | awk '{print $4}' > /tmp/original_files.txt || true
+        
+        # Get list of files from current commit in .tests directory only
+        git ls-tree -r HEAD .tests/ | awk '{print $4}' > /tmp/current_files.txt || true
+        
+        echo "Original . tests files:"
+        cat /tmp/original_files.txt
+        echo ""
+        echo "Current .tests files:"
+        cat /tmp/current_files.txt
+        echo ""
+        
+        # Check if file lists are different
+        if !  diff -q /tmp/original_files.txt /tmp/current_files.txt > /dev/null 2>&1; then
+          echo "❌ ERROR: Files in .tests directory have been added or removed!"
+          echo ""
+          echo "Difference:"
+          diff /tmp/original_files.txt /tmp/current_files.txt || true
+          MODIFIED=1
+        else
+          # Compare content of each file
+          while IFS= read -r file; do
+            if [ -n "$file" ]; then
+              ORIGINAL_CONTENT=$(git show $INITIAL_COMMIT:"$file" 2>/dev/null | sha256sum | cut -d' ' -f1)
+              CURRENT_CONTENT=$(git show HEAD:"$file" 2>/dev/null | sha256sum | cut -d' ' -f1)
+              
+              if [ "$ORIGINAL_CONTENT" != "$CURRENT_CONTENT" ]; then
+                echo "❌ File modified: $file"
+                MODIFIED=1
+              fi
+            fi
+          done < /tmp/original_files.txt
+        fi
+
+        if [ $MODIFIED -eq 1 ]; then
+          echo ""
+          echo "⚠️  DO NOT modify, add, delete, or rename any files inside the .tests folder!"
+          echo "These are test files managed by the instructor."
+          echo ""
+          echo "To fix this issue:"
+          echo "1. Restore the original .tests folder from the template"
+          echo "2. Do not modify any files in .tests/"
+          echo "3. Commit and push again"
+          exit 1
+        fi
+        
+        echo "✅ .tests directory integrity verified.  Proceeding with tests..."
+        
+    - name: objects
+      id: objects
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: objects
+        setup-command: npm install
+        command: npm test
+        timeout: 10
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        OBJECTS_RESULTS: "${{steps.objects.outputs.result}}"
+      with:
+        runners: objects

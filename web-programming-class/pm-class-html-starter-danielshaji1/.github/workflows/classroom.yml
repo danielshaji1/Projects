@@ -1,0 +1,58 @@
+name: Autograding Tests
+'on':
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup
+      run: npm install
+    - name: Boilerplate
+      id: boilerplate
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Boilerplate
+        command: npm test .tests/01-boilerplate.test.js
+        timeout: 10
+        max-score: 1
+    - name: Title
+      id: title
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Title
+        command: npm test .tests/02-title.test.js
+        timeout: 10
+        max-score: 1
+    - name: H1
+      id: h1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: H1
+        command: npm test .tests/03-h1.test.js
+        timeout: 10
+        max-score: 1
+    - name: Sections
+      id: sections
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Sections
+        command: npm test .tests/04-sections.test.js
+        timeout: 10
+        max-score: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        BOILERPLATE_RESULTS: "${{steps.boilerplate.outputs.result}}"
+        TITLE_RESULTS: "${{steps.title.outputs.result}}"
+        H1_RESULTS: "${{steps.h1.outputs.result}}"
+        SECTIONS_RESULTS: "${{steps.sections.outputs.result}}"
+      with:
+        runners: boilerplate,title,h1,sections

@@ -1,0 +1,120 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup
+      run: npm install
+    # PROTECTION: Check if .tests folder matches original
+    - name: Check .tests folder integrity
+      run: |
+        echo "🔍 Verifying .tests directory has not been tampered with..."
+        
+        # Find the initial commit (template commit)
+        INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
+        echo "Initial commit: $INITIAL_COMMIT"
+        
+        # Compare each file in .tests directory
+        MODIFIED=0
+        
+        # Get list of files from initial commit in .tests directory only
+        git ls-tree -r $INITIAL_COMMIT .tests/ | awk '{print $4}' > /tmp/original_files.txt || true
+        
+        # Get list of files from current commit in .tests directory only
+        git ls-tree -r HEAD .tests/ | awk '{print $4}' > /tmp/current_files.txt || true
+        
+        echo "Original . tests files:"
+        cat /tmp/original_files.txt
+        echo ""
+        echo "Current .tests files:"
+        cat /tmp/current_files.txt
+        echo ""
+        
+        # Check if file lists are different
+        if !  diff -q /tmp/original_files.txt /tmp/current_files.txt > /dev/null 2>&1; then
+          echo "❌ ERROR: Files in .tests directory have been added or removed!"
+          echo ""
+          echo "Difference:"
+          diff /tmp/original_files.txt /tmp/current_files.txt || true
+          MODIFIED=1
+        else
+          # Compare content of each file
+          while IFS= read -r file; do
+            if [ -n "$file" ]; then
+              ORIGINAL_CONTENT=$(git show $INITIAL_COMMIT:"$file" 2>/dev/null | sha256sum | cut -d' ' -f1)
+              CURRENT_CONTENT=$(git show HEAD:"$file" 2>/dev/null | sha256sum | cut -d' ' -f1)
+              
+              if [ "$ORIGINAL_CONTENT" != "$CURRENT_CONTENT" ]; then
+                echo "❌ File modified: $file"
+                MODIFIED=1
+              fi
+            fi
+          done < /tmp/original_files.txt
+        fi
+
+        if [ $MODIFIED -eq 1 ]; then
+          echo ""
+          echo "⚠️  DO NOT modify, add, delete, or rename any files inside the .tests folder!"
+          echo "These are test files managed by the instructor."
+          echo ""
+          echo "To fix this issue:"
+          echo "1. Restore the original .tests folder from the template"
+          echo "2. Do not modify any files in .tests/"
+          echo "3. Commit and push again"
+          exit 1
+        fi
+        
+        echo "✅ .tests directory integrity verified.  Proceeding with tests..."
+    - name: Use test package files
+      run: |
+        cp .tests/package.json ./package.json
+        cp .tests/package-lock.json ./package-lock.json
+    # 1) Greeting: Click Events Exercise (5 pts)
+    - name: Greeting Click Events
+      id: greeting-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "Greeting: Click Events Exercise (5pts)"
+        command: npm test .tests/01-greeting.test.js
+        timeout: 10
+        max-score: 5
+
+    # 2) Switch the Background Color (5 pts)
+    - name: Background Color Switcher
+      id: color-switcher-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "Switch the Background Color (5pts)"
+        command: npm test .tests/02-color-switcher.test.js
+        timeout: 10
+        max-score: 5
+
+    # 3) Create a dynamic list (10 pts)
+    - name: Dynamic List
+      id: dynamic-list-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "Create a dynamic list (10pts)"
+        command: npm test .tests/03-dynamic-list.test.js
+        timeout: 10
+        max-score: 10
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        GREETING-TEST_RESULTS: "${{ steps.greeting-test.outputs.result }}"
+        COLOR-SWITCHER-TEST_RESULTS: "${{ steps.color-switcher-test.outputs.result }}"
+        DYNAMIC-LIST-TEST_RESULTS: "${{ steps.dynamic-list-test.outputs.result }}"
+      with:
+        runners: greeting-test,color-switcher-test,dynamic-list-test

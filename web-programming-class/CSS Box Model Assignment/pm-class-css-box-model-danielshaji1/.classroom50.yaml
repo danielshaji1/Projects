@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "pm-class"
+assignment: "css-box-model"
+owner:
+  username: "danielshaji1"
+  id: 232939717
+  accepted_at: "2026-08-27T17:44:43Z"
+source:
+  owner: "CSCI4300-Web-Programming"
+  owner_id: 212650580
+  repo: "css-box-model-sp26"
+  branch: "main"

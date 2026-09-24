@@ -1,0 +1,22 @@
+div {
+    width: 100px; 
+    height: 100px;
+}
+
+.top {
+    background-color: #87A2FF;
+    border: 10px solid;
+    padding: 20px;
+}
+
+.middle {
+    background-color: blueviolet;
+    border: 20px solid;
+    margin-left: 160px;
+}
+
+.bottom {
+    background-color: #64B5F6;
+    border: 10px solid;
+    margin-left:300px;
+}

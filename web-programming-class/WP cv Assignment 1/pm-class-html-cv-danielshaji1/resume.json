@@ -1,0 +1,70 @@
+{
+  "name": "Daniel Shaji",
+  "tagline": "CS @ UGA, Passionate about the Cloud.",
+  "headshot": "images/headshot.jpg", 
+  "contact": {
+    "address": "Snellville, GA",
+    "phone": "(470) 385-8439",
+    "email": "dain.shaji4561@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/yourprofile"
+  },
+  "education": {
+    "school": "University of Georgia",
+    "gpa": "3.7",
+    "degree": "Bachelor of Science - Computer Science",
+    "graduation_date": "May 2027"
+  },
+  "honors_and_awards": [
+    {
+      "honor": "Dean's List",
+      "date": "2024, 2025, 2026"
+    },
+    {
+      "honor": "Scholarship Award",
+      "date": ""
+    }
+  ],
+  "skills": [
+    "HTML",
+    "Java",
+    "C",
+    "Python"
+  ],
+  "leadership_and_experience": [
+    {
+      "position": "Intern at Company",
+      "date": "2023\u2013Present",
+      "link": "https://company.com"
+    },
+    {
+      "position": "Volunteer at Org",
+      "date": "2022\u20132023"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Portfolio Website",
+      "image": "images/proj_img1.jpg",
+      "descr": [
+        "Built with HTML/CSS",
+        "Deployed on Netlify"
+      ]
+    },
+    {
+      "title": "Security Program",
+      "image": "images/proj_img2.jpg",
+      "descr": [
+        "Python OpenCV",
+        "Local storage system for logging and monitoring recordings. "
+      ]
+    },
+    {
+      "title": "Resume Builder",
+      "image": "images/proj_img3.jpg",
+      "descr": [
+        "JSON to HTML conversion",
+        "Practice with DOM"
+      ]
+    }
+  ]
+}

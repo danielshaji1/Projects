@@ -7,6 +7,7 @@ A collection of coursework and side projects from college courses, organized int
 - [`homework-labs/`](./homework-labs/): homework, lab, and assignment-based course projects
 - [`opencv-computer-vision/`](./opencv-computer-vision/): OpenCV, facial recognition, hand tracking, and related experiments
 - [`cryptography/`](./cryptography/): cryptography coursework and security-focused experiments
+- [`web-programming-class/`](./web-programming-class/): web programming assignments and JavaScript practice
 
 ## Project Index
 

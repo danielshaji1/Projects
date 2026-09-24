@@ -1,0 +1,121 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup
+      run: npm install
+    # 1) Index Validity & Structure (3 pts)
+    - name: Index Validity and Structure
+      id: index-validity-structure
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "index.html: Validity & Structure (3pts)"
+        command: npm test .tests/index-validity-structure.test.js
+        timeout: 10
+        max-score: 3
+
+    # 2) Index Profile Region (2 pts)
+    - name: Index Profile Region
+      id: index-profile-region
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "index.html: Profile Region (2pts)"
+        command: npm test .tests/index-profile-region.test.js
+        timeout: 10
+        max-score: 2
+
+    # 3) Index Content Sections (4 pts)
+    - name: Index Content Sections
+      id: index-content-sections
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "index.html: Content Sections (4pts)"
+        command: npm test .tests/index-content-sections.test.js
+        timeout: 10
+        max-score: 4
+
+    # 4) Index Projects Section (3 pts)
+    - name: Index Projects Section
+      id: index-projects-section
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "index.html: Projects Section (3pts)"
+        command: npm test .tests/index-projects-section.test.js
+        timeout: 10
+        max-score: 3
+
+    # 5) Index Footer (1 pt)
+    - name: Index Footer
+      id: index-footer
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "index.html: Footer (1pt)"
+        command: npm test .tests/index-footer.test.js
+        timeout: 10
+        max-score: 1
+
+    # 6) Contact Validity & Structure (2 pts)
+    - name: Contact Validity and Structure
+      id: contact-validity-structure
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "contact.html: Validity & Structure (2pts)"
+        command: npm test .tests/contact-validity-structure.test.js
+        timeout: 10
+        max-score: 2
+
+    # 7) Contact Navigation (1 pt)
+    - name: Contact Navigation
+      id: contact-navigation
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "contact.html: Navigation (1pt)"
+        command: npm test .tests/contact-navigation.test.js
+        timeout: 10
+        max-score: 1
+
+    # 8) Contact Form (3 pts)
+    - name: Contact Form
+      id: contact-form
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "contact.html: Form (3pts)"
+        command: npm test .tests/contact-form.test.js
+        timeout: 10
+        max-score: 3
+
+    # 9) Contact Footer (1 pt)
+    - name: Contact Footer
+      id: contact-footer
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: "contact.html: Footer (1pt)"
+        command: npm test .tests/contact-footer.test.js
+        timeout: 10
+        max-score: 1
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        INDEX-VALIDITY-STRUCTURE_RESULTS: "${{ steps.index-validity-structure.outputs.result }}"
+        INDEX-PROFILE-REGION_RESULTS: "${{ steps.index-profile-region.outputs.result }}"
+        INDEX-CONTENT-SECTIONS_RESULTS: "${{ steps.index-content-sections.outputs.result }}"
+        INDEX-PROJECTS-SECTION_RESULTS: "${{ steps.index-projects-section.outputs.result }}"
+        INDEX-FOOTER_RESULTS: "${{ steps.index-footer.outputs.result }}"
+        CONTACT-VALIDITY-STRUCTURE_RESULTS: "${{ steps.contact-validity-structure.outputs.result }}"
+        CONTACT-NAVIGATION_RESULTS: "${{ steps.contact-navigation.outputs.result }}"
+        CONTACT-FORM_RESULTS: "${{ steps.contact-form.outputs.result }}"
+        CONTACT-FOOTER_RESULTS: "${{ steps.contact-footer.outputs.result }}"
+      with:
+        runners: index-validity-structure,index-profile-region,index-content-sections,index-projects-section,index-footer,contact-validity-structure,contact-navigation,contact-form,contact-footer

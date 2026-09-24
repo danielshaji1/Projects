@@ -1,0 +1,17 @@
+{
+  "name": "array-methods-comprehensive-test",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest",
+    "test timeout": "jest .tests/timeout.test.js",
+    "test link": "jest .tests/link.test.js",
+    "test paragraph": "jest .tests/paragraph.test.js",
+    "test list": "jest .tests/list.test.js"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^30.2.0"
+  }
+}

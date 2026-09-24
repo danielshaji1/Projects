@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "pm-class"
+assignment: "js-dom-demo"
+owner:
+  username: "danielshaji1"
+  id: 232939717
+  accepted_at: "2026-09-17T17:53:45Z"
+source:
+  owner: "CSCI4300-Web-Programming"
+  owner_id: 212650580
+  repo: "js-DOM-demo-c50"
+  branch: "main"
